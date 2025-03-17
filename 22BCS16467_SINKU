@@ -1,0 +1,98 @@
+// Question 6.1
+import java.util.*;
+class Employee {
+    private String name;
+    private int age;
+    private double salary;
+    public Employee(String name, int age, double salary) 
+    {
+        this.name = name;
+        this.age = age;
+        this.salary = salary;
+    }
+    public String getName() {
+        return name;
+    }
+    public int getAge() {
+        return age;
+    }
+    public double getSalary() {
+        return salary;
+    }
+    @Override
+    public String toString() {
+        return "Employee{name='" + name + "', age=" + age + ", salary=" + salary + "}";
+    }
+}
+
+public class EmployeeSort {
+    public static void main(String[] args) {
+        List<Employee> employees = new ArrayList<>();
+        employees.add(new Employee("SINKU", 21, 500000.0));
+        employees.add(new Employee("RESHANT", 20, 60000.0));
+        employees.add(new Employee("AAKANKSHA", 22, 55000.0));
+
+        // Sorting by Name
+        employees.sort(Comparator.comparing(Employee::getName));
+        System.out.println("Sorted by Name:");
+        employees.forEach(System.out::println);
+
+        // Sorting by Age
+        employees.sort(Comparator.comparingInt(Employee::getAge));
+        System.out.println("\nSorted by Age:");
+        employees.forEach(System.out::println);
+
+        // Sorting by Salary
+        employees.sort(Comparator.comparingDouble(Employee::getSalary));
+        System.out.println("\nSorted by Salary:");
+        employees.forEach(System.out::println);
+    }
+}
+
+//QUESTION 6.2
+import java.util.*;
+import java.util.stream.Collectors;
+
+class Student {
+    private String name;
+    private double marks;
+
+    public Student(String name, double marks) 
+    {
+        this.name = name;
+        this.marks = marks;
+    }
+
+    public String getName() 
+    {
+        return name;
+    }
+
+    public double getMarks() 
+    {
+        return marks;
+    }
+}
+
+public class StudentFilterSort 
+{
+    public static void main(String[] args) 
+    {
+        List<Student> students = Arrays.asList
+        (
+            new Student("Aakanksha ", 100),
+            new Student("SINKU", 72.0),
+            new Student("RESHANT", 85.0)
+        );
+
+        // Filtering students with marks > 75, sorting by marks, and displaying names
+        List<String> topStudents = students.stream()
+            .filter(s -> s.getMarks() > 75)
+            .sorted(Comparator.comparingDouble(Student::getMarks).reversed())
+            .map(Student::getName)
+            .collect(Collectors.toList());
+
+        System.out.println("Students scoring above 75% (sorted by marks):");
+        topStudents.forEach(System.out::println);
+    }
+}
